@@ -9,7 +9,6 @@ parser.add_argument('--port', type=int, required=False, help='Specify a specific
 parser.add_argument('--range', required=False, default='1-200', help='Specify range to scan (default: 1-200)')
 parser.add_argument('--sv', required=False, action='store_true', help='Saves results to to a txt file (filename based on date)')
 parser.add_argument('--name', required=False, help='Name for output file')
-#to add: output file, ouput mode (print/save only open, closed, both)
 args = parser.parse_args()
 
 def ScanPort(ip, port):
@@ -31,9 +30,6 @@ def ScanRange(ip, inputRange):
     with ThreadPoolExecutor(max_workers=50) as executor:
         results = list(executor.map(lambda port: ScanPort(ip, port), portList))
     return results
-
-def Output(filename):
-    print(f"Output file saved as {filename}")
 
 if args.port:
     results = [ScanPort(args.ip, args.port)]
